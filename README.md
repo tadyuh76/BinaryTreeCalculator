@@ -13,10 +13,8 @@ A **C# WinForms-based calculator** that evaluates mathematical expressions using
 - **Error Handling**: Provides feedback for invalid expressions or division by zero.
 
 ## 🖼️ Demo
+![image](https://github.com/user-attachments/assets/b2ac0e7b-d7b2-42b7-8d87-d061022aa211)
 
-![Calculator UI](blob:https://www.facebook.com/41e07cad-fd4b-4863-a4cd-e7dbe8ace133)
-
-> Add a screenshot of your calculator here to give users a glimpse of the app.
 
 ## 🛠️ How It Works
 
