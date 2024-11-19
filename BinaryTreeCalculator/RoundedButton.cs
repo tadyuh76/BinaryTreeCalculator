@@ -1,8 +1,11 @@
-﻿using System.Drawing;
+﻿using System.ComponentModel;
+using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
 namespace BinaryTreeCalculator;
+
+[DesignerCategory("Code")]
 public class RoundedButton : Button
 {
     // Properties for customization
@@ -13,7 +16,26 @@ public class RoundedButton : Button
     public Color OriginalBackColor { get; set; } = Constants.GreyColor;
 
 
-    // Constructor to set default properties
+    // Default constructor
+    public RoundedButton()
+    {
+        // Set default styles and appearance
+        FlatStyle = FlatStyle.Flat;
+        Font = new Font("Arial", 16F);
+        ForeColor = Color.White;
+        Size = new Size(60, 60);
+        Margin = new Padding(5);
+        Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+        FlatAppearance.BorderSize = 0; // Remove default border
+
+        Cursor = Cursors.Hand;
+
+        // Attach hover event handlers
+        this.MouseEnter += CustomButton_MouseEnter;
+        this.MouseLeave += CustomButton_MouseLeave;
+    }
+
+    // Custom Constructor
     public RoundedButton(Color backColor)
     {
         // Set default styles and appearance

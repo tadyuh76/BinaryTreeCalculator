@@ -65,34 +65,32 @@ namespace BinaryTreeCalculator
             closeButton = new Button();
             appName = new Label();
             leftPanel = new Panel();
+            expressionTextBox = new TextBox();
             calculatorButtonGrid = new TableLayoutPanel();
-            button0 = new RoundedButton(Constants.GreyColor);
-            button1 = new RoundedButton(Constants.GreyColor);
-            button2 = new RoundedButton(Constants.GreyColor);
-            button3 = new RoundedButton(Constants.GreyColor);
-            button4 = new RoundedButton(Constants.GreyColor);
-            button5 = new RoundedButton(Constants.GreyColor);
-            button6 = new RoundedButton(Constants.GreyColor);
-            button7 = new RoundedButton(Constants.GreyColor);
-            button8 = new RoundedButton(Constants.GreyColor);
-            button9 = new RoundedButton(Constants.GreyColor);
-            buttonDot = new RoundedButton(Constants.GreyColor);
-            buttonPlus = new RoundedButton(Constants.DarkGreyColor);
-            buttonMinus = new RoundedButton(Constants.DarkGreyColor);
-            buttonMultiply = new RoundedButton(Constants.DarkGreyColor);
-            buttonDivide = new RoundedButton(Constants.DarkGreyColor);
-            buttonAC = new RoundedButton(Constants.DarkGreyColor);
-            buttonDel = new RoundedButton(Constants.DarkGreyColor);
-            buttonOpen = new RoundedButton(Constants.DarkGreyColor);
-            buttonClose = new RoundedButton(Constants.DarkGreyColor);
-            buttonEqual = new RoundedButton(Constants.EqualSignColor);
-
+            button0 = new RoundedButton();
+            button1 = new RoundedButton();
+            button2 = new RoundedButton();
+            button3 = new RoundedButton();
+            button4 = new RoundedButton();
+            button5 = new RoundedButton();
+            button6 = new RoundedButton();
+            button7 = new RoundedButton();
+            button8 = new RoundedButton();
+            button9 = new RoundedButton();
+            buttonDot = new RoundedButton();
+            buttonPlus = new RoundedButton();
+            buttonMinus = new RoundedButton();
+            buttonMultiply = new RoundedButton();
+            buttonDivide = new RoundedButton();
+            buttonOpen = new RoundedButton();
+            buttonClose = new RoundedButton();
+            buttonAC = new RoundedButton();
+            buttonEqual = new RoundedButton();
+            buttonDel = new RoundedButton();
             navBar.SuspendLayout();
             leftPanel.SuspendLayout();
             calculatorButtonGrid.SuspendLayout();
-            
             SuspendLayout();
-
             // 
             // navBar
             // 
@@ -159,12 +157,25 @@ namespace BinaryTreeCalculator
             // 
             // leftPanel
             // 
+            leftPanel.Controls.Add(expressionTextBox);
             leftPanel.Controls.Add(calculatorButtonGrid);
             leftPanel.Location = new Point(0, 32);
             leftPanel.Margin = new Padding(0);
             leftPanel.Name = "leftPanel";
             leftPanel.Size = new Size(320, 468);
             leftPanel.TabIndex = 2;
+            // 
+            // expressionTextBox
+            // 
+            expressionTextBox.BackColor = Color.Black;
+            expressionTextBox.BorderStyle = BorderStyle.None;
+            expressionTextBox.Font = new Font("Arial", 24F);
+            expressionTextBox.ForeColor = Color.White;
+            expressionTextBox.Location = new Point(25, 51);
+            expressionTextBox.Name = "expressionTextBox";
+            expressionTextBox.Size = new Size(270, 37);
+            expressionTextBox.TabIndex = 2;
+            expressionTextBox.TextAlign = HorizontalAlignment.Right;
             // 
             // calculatorButtonGrid
             // 
@@ -226,6 +237,7 @@ namespace BinaryTreeCalculator
             button0.TabIndex = 0;
             button0.Text = "0";
             button0.UseVisualStyleBackColor = false;
+            button0.Click += button0_Click;
             // 
             // button1
             // 
@@ -246,6 +258,7 @@ namespace BinaryTreeCalculator
             button1.TabIndex = 1;
             button1.Text = "1";
             button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
             // 
             // button2
             // 
@@ -266,6 +279,7 @@ namespace BinaryTreeCalculator
             button2.TabIndex = 2;
             button2.Text = "2";
             button2.UseVisualStyleBackColor = false;
+            button2.Click += button2_Click;
             // 
             // button3
             // 
@@ -286,6 +300,7 @@ namespace BinaryTreeCalculator
             button3.TabIndex = 3;
             button3.Text = "3";
             button3.UseVisualStyleBackColor = false;
+            button3.Click += button3_Click;
             // 
             // button4
             // 
@@ -306,6 +321,7 @@ namespace BinaryTreeCalculator
             button4.TabIndex = 4;
             button4.Text = "4";
             button4.UseVisualStyleBackColor = false;
+            button4.Click += button4_Click;
             // 
             // button5
             // 
@@ -326,6 +342,7 @@ namespace BinaryTreeCalculator
             button5.TabIndex = 5;
             button5.Text = "5";
             button5.UseVisualStyleBackColor = false;
+            button5.Click += button5_Click;
             // 
             // button6
             // 
@@ -346,6 +363,7 @@ namespace BinaryTreeCalculator
             button6.TabIndex = 6;
             button6.Text = "6";
             button6.UseVisualStyleBackColor = false;
+            button6.Click += button6_Click;
             // 
             // button7
             // 
@@ -366,6 +384,7 @@ namespace BinaryTreeCalculator
             button7.TabIndex = 7;
             button7.Text = "7";
             button7.UseVisualStyleBackColor = false;
+            button7.Click += button7_Click;
             // 
             // button8
             // 
@@ -386,6 +405,7 @@ namespace BinaryTreeCalculator
             button8.TabIndex = 8;
             button8.Text = "8";
             button8.UseVisualStyleBackColor = false;
+            button8.Click += button8_Click;
             // 
             // button9
             // 
@@ -406,6 +426,7 @@ namespace BinaryTreeCalculator
             button9.TabIndex = 9;
             button9.Text = "9";
             button9.UseVisualStyleBackColor = false;
+            button9.Click += button9_Click;
             // 
             // buttonDot
             // 
@@ -426,6 +447,7 @@ namespace BinaryTreeCalculator
             buttonDot.TabIndex = 10;
             buttonDot.Text = ".";
             buttonDot.UseVisualStyleBackColor = false;
+            buttonDot.Click += buttonDot_Click;
             // 
             // buttonPlus
             // 
@@ -446,6 +468,7 @@ namespace BinaryTreeCalculator
             buttonPlus.TabIndex = 11;
             buttonPlus.Text = "+";
             buttonPlus.UseVisualStyleBackColor = false;
+            buttonPlus.Click += buttonPlus_Click;
             // 
             // buttonMinus
             // 
@@ -466,6 +489,7 @@ namespace BinaryTreeCalculator
             buttonMinus.TabIndex = 12;
             buttonMinus.Text = "-";
             buttonMinus.UseVisualStyleBackColor = false;
+            buttonMinus.Click += buttonMinus_Click;
             // 
             // buttonMultiply
             // 
@@ -486,6 +510,7 @@ namespace BinaryTreeCalculator
             buttonMultiply.TabIndex = 13;
             buttonMultiply.Text = "x";
             buttonMultiply.UseVisualStyleBackColor = false;
+            buttonMultiply.Click += buttonMultiply_Click;
             // 
             // buttonDivide
             // 
@@ -506,6 +531,7 @@ namespace BinaryTreeCalculator
             buttonDivide.TabIndex = 14;
             buttonDivide.Text = "/";
             buttonDivide.UseVisualStyleBackColor = false;
+            buttonDivide.Click += buttonDivide_Click;
             // 
             // buttonOpen
             // 
@@ -526,6 +552,7 @@ namespace BinaryTreeCalculator
             buttonOpen.TabIndex = 15;
             buttonOpen.Text = "(";
             buttonOpen.UseVisualStyleBackColor = false;
+            buttonOpen.Click += buttonOpen_Click;
             // 
             // buttonClose
             // 
@@ -546,6 +573,7 @@ namespace BinaryTreeCalculator
             buttonClose.TabIndex = 16;
             buttonClose.Text = ")";
             buttonClose.UseVisualStyleBackColor = false;
+            buttonClose.Click += buttonClose_Click;
             // 
             // buttonAC
             // 
@@ -566,6 +594,7 @@ namespace BinaryTreeCalculator
             buttonAC.TabIndex = 17;
             buttonAC.Text = "AC";
             buttonAC.UseVisualStyleBackColor = false;
+            buttonAC.Click += buttonAC_Click;
             // 
             // buttonEqual
             // 
@@ -586,6 +615,7 @@ namespace BinaryTreeCalculator
             buttonEqual.TabIndex = 18;
             buttonEqual.Text = "=";
             buttonEqual.UseVisualStyleBackColor = false;
+            buttonEqual.Click += buttonEqual_Click;
             // 
             // buttonDel
             // 
@@ -606,6 +636,7 @@ namespace BinaryTreeCalculator
             buttonDel.TabIndex = 19;
             buttonDel.Text = "Del";
             buttonDel.UseVisualStyleBackColor = false;
+            buttonDel.Click += buttonDel_Click;
             // 
             // MainForm
             // 
@@ -624,6 +655,7 @@ namespace BinaryTreeCalculator
             navBar.ResumeLayout(false);
             navBar.PerformLayout();
             leftPanel.ResumeLayout(false);
+            leftPanel.PerformLayout();
             calculatorButtonGrid.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -656,5 +688,6 @@ namespace BinaryTreeCalculator
         private RoundedButton buttonAC;
         private RoundedButton buttonEqual;
         private RoundedButton buttonDel;
+        private TextBox expressionTextBox;
     }
 }
