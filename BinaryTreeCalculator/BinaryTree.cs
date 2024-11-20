@@ -29,14 +29,14 @@ public class BinaryTree
         return Math.Round(res, 10);
     }
 
-    public Node BuildExpressionTree(string expression)
+    private Node BuildExpressionTree(string expression)
     {
         var tokens = Tokenize(expression);
         var postfix = ConvertToPostfix(tokens);
         return BuildTreeFromPostfix(postfix);
     }
 
-    public double EvaluateTree(Node root)
+    private double EvaluateTree(Node root)
     {
         if (root == null) return 0;
         if (root.Left == null && root.Right == null) // Leaf node

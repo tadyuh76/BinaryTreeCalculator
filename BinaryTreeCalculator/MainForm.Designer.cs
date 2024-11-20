@@ -65,7 +65,8 @@ namespace BinaryTreeCalculator
             closeButton = new Button();
             appName = new Label();
             leftPanel = new Panel();
-            expressionTextBox = new TextBox();
+            secondaryTextBox = new TextBox();
+            primaryTextBox = new TextBox();
             calculatorButtonGrid = new TableLayoutPanel();
             button0 = new RoundedButton();
             button1 = new RoundedButton();
@@ -157,7 +158,8 @@ namespace BinaryTreeCalculator
             // 
             // leftPanel
             // 
-            leftPanel.Controls.Add(expressionTextBox);
+            leftPanel.Controls.Add(secondaryTextBox);
+            leftPanel.Controls.Add(primaryTextBox);
             leftPanel.Controls.Add(calculatorButtonGrid);
             leftPanel.Location = new Point(0, 32);
             leftPanel.Margin = new Padding(0);
@@ -165,17 +167,29 @@ namespace BinaryTreeCalculator
             leftPanel.Size = new Size(320, 468);
             leftPanel.TabIndex = 2;
             // 
-            // expressionTextBox
+            // secondaryTextBox
             // 
-            expressionTextBox.BackColor = Color.Black;
-            expressionTextBox.BorderStyle = BorderStyle.None;
-            expressionTextBox.Font = new Font("Arial", 24F);
-            expressionTextBox.ForeColor = Color.White;
-            expressionTextBox.Location = new Point(25, 51);
-            expressionTextBox.Name = "expressionTextBox";
-            expressionTextBox.Size = new Size(270, 37);
-            expressionTextBox.TabIndex = 2;
-            expressionTextBox.TextAlign = HorizontalAlignment.Right;
+            secondaryTextBox.BackColor = Color.Black;
+            secondaryTextBox.BorderStyle = BorderStyle.None;
+            secondaryTextBox.Font = new Font("Arial", 16F);
+            secondaryTextBox.ForeColor = Color.DimGray;
+            secondaryTextBox.Location = new Point(195, 20);
+            secondaryTextBox.Name = "secondaryTextBox";
+            secondaryTextBox.Size = new Size(100, 25);
+            secondaryTextBox.TabIndex = 3;
+            secondaryTextBox.TextAlign = HorizontalAlignment.Right;
+            // 
+            // primaryTextBox
+            // 
+            primaryTextBox.BackColor = Color.Black;
+            primaryTextBox.BorderStyle = BorderStyle.None;
+            primaryTextBox.Font = new Font("Arial", 24F);
+            primaryTextBox.ForeColor = Color.White;
+            primaryTextBox.Location = new Point(25, 51);
+            primaryTextBox.Name = "primaryTextBox";
+            primaryTextBox.Size = new Size(270, 37);
+            primaryTextBox.TabIndex = 2;
+            primaryTextBox.TextAlign = HorizontalAlignment.Right;
             // 
             // calculatorButtonGrid
             // 
@@ -688,6 +702,7 @@ namespace BinaryTreeCalculator
         private RoundedButton buttonAC;
         private RoundedButton buttonEqual;
         private RoundedButton buttonDel;
-        private TextBox expressionTextBox;
+        private TextBox primaryTextBox;
+        private TextBox secondaryTextBox;
     }
 }
