@@ -46,15 +46,10 @@ Follow these instructions to set up and run the project on your local machine.
 
 ## 📝 Usage
 
-1. Enter a mathematical expression using the on-screen buttons or keyboard.
+1. Enter a mathematical expression using the on-screen buttons.
 2. Click the `=` button to evaluate the expression.
 3. Use `AC` to clear the expression or `Del` to delete the last character.
 
-## 📂 Project Structure
-
-- **`MainForm.cs`**: Contains the main logic for UI interaction and expression evaluation.
-- **`MainForm.Designer.cs`**: Auto-generated code for the calculator's graphical interface.
-- **`Node.cs`**: Defines the structure and functionality of binary tree nodes used in evaluation.
 
 ## 💡 Example Expressions
 
