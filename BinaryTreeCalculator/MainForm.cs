@@ -7,6 +7,7 @@ namespace BinaryTreeCalculator
     {
         public string Expression = "";
         public bool IsResultDisplayed = false; // Flag to track if result is displayed
+        public BinaryTree BinaryTree = new();
 
         public MainForm()
         {
@@ -65,8 +66,14 @@ namespace BinaryTreeCalculator
             primaryTextBox.Clear();
             secondaryTextBox.Clear();
             Expression = "";
+
             IsResultDisplayed = false;
             InitializeCustomUI();
+
+            // Hide the Binary Tree in the right panel
+            BinaryTree = new();
+            RefreshRightPanel();
+
         }
 
         private void buttonDel_Click(object sender, EventArgs e)
@@ -82,8 +89,7 @@ namespace BinaryTreeCalculator
         {
             try
             {
-                var binaryTree = new BinaryTree();
-                double result = binaryTree.EvaluateExpression(Expression);
+                double result = BinaryTree.EvaluateExpression(Expression);
 
                 // Update primary text box UI
                 primaryTextBox.Text = result.ToString();
@@ -95,6 +101,9 @@ namespace BinaryTreeCalculator
 
                 Expression = result.ToString(); // Update expression to the result
                 IsResultDisplayed = true;
+
+                // Update the Tree viewer
+                RefreshRightPanel();
             }
             catch (Exception)
             {
@@ -103,6 +112,98 @@ namespace BinaryTreeCalculator
                 Expression = "";
                 IsResultDisplayed = false;
             }
+        }
+
+        private void rightPanel_Paint(object sender, PaintEventArgs e)
+        {
+            if (BinaryTree?.Root == null) return;
+
+            Graphics g = e.Graphics;
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+
+            int panelWidth = rightPanel.Width;
+            int panelHeight = rightPanel.Height;
+
+            int nodeRadius = 20; // Radius of each node circle
+            int verticalSpacing = 50; // Vertical spacing between levels
+
+            // Calculate the total height of the tree
+            int treeHeight = GetTreeDepth(BinaryTree.Root) * verticalSpacing;
+
+            // Adjust the starting Y coordinate to center the tree vertically
+            int startY = (panelHeight - treeHeight) / 2;
+
+            // Start drawing the tree from the root
+            DrawNode(g, BinaryTree.Root, panelWidth / 2, startY, panelWidth / 4, nodeRadius, verticalSpacing);
+        }
+
+        private void DrawNode(Graphics g, BinaryTreeNode node, int x, int y, int horizontalSpacing, int nodeRadius, int verticalSpacing)
+        {
+            if (node == null) return;            
+
+            // Pen for drawing lines
+            Pen linePen = new Pen(Constants.LightGreyColor, 2f);
+
+            // Draw left child
+            if (node.Left != null)
+            {
+                int childX = x - horizontalSpacing;
+                int childY = y + verticalSpacing;
+
+                // Draw line to left child
+                g.DrawLine(linePen, x, y, childX, childY - nodeRadius + 5);
+
+                // Recursively draw the left subtree
+                DrawNode(g, node.Left, childX, childY, horizontalSpacing / 2, nodeRadius, verticalSpacing);
+            }
+
+            // Draw right child
+            if (node.Right != null)
+            {
+                int childX = x + horizontalSpacing;
+                int childY = y + verticalSpacing;
+
+                // Draw line to right child
+                g.DrawLine(linePen, x, y, childX, childY - nodeRadius + 5);
+
+                // Recursively draw the right subtree
+                DrawNode(g, node.Right, childX, childY, horizontalSpacing / 2, nodeRadius, verticalSpacing);
+            }
+
+            // Determine the color for the current node
+            Brush nodeBrush = IsDigitNode(node) ? new SolidBrush(Constants.OperantColor)
+                                                 : new SolidBrush(Constants.ExpressionColor);
+
+            // Draw the current node as a circle
+            RectangleF circleBounds = new RectangleF(x - nodeRadius, y - nodeRadius, 2 * nodeRadius, 2 * nodeRadius);
+            g.FillEllipse(nodeBrush, circleBounds);
+            g.DrawEllipse(Pens.Transparent, circleBounds);
+
+            // Draw the node's value
+            StringFormat format = new StringFormat
+            {
+                Alignment = StringAlignment.Center,
+                LineAlignment = StringAlignment.Center
+            };
+            var truncatedVal = node.Value.Substring(0, Math.Min(4, node.Value.Length));
+            g.DrawString(truncatedVal, new Font("Arial", 10), Brushes.Black, circleBounds, format);
+        }
+
+        private void RefreshRightPanel()
+        {
+            rightPanel.Invalidate(); // Request to redraw the panel
+            rightPanel.Update(); // Force immediate processing of the redraw
+        }
+
+        private int GetTreeDepth(BinaryTreeNode node)
+        {
+            if (node == null) return 0;
+            return 1 + Math.Max(GetTreeDepth(node.Left), GetTreeDepth(node.Right));
+        }
+
+        private bool IsDigitNode(BinaryTreeNode node)
+        {
+            return char.IsDigit(node.Value[0]);
         }
     }
 }

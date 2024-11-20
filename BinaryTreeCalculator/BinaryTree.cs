@@ -7,13 +7,13 @@ using System.Xml.Linq;
 
 namespace BinaryTreeCalculator;
 
-public class Node
+public class BinaryTreeNode
 {
     public string Value { get; set; }
-    public Node Left { get; set; }
-    public Node Right { get; set; }
+    public BinaryTreeNode Left { get; set; }
+    public BinaryTreeNode Right { get; set; }
 
-    public Node(string value)
+    public BinaryTreeNode(string value)
     {
         Value = value;
         Left = Right = null;
@@ -22,21 +22,23 @@ public class Node
 
 public class BinaryTree
 {
+    public BinaryTreeNode Root { get; private set; } // Expose the tree's root for visualization
+
     public double EvaluateExpression(string expression)
     {
-        var root = BuildExpressionTree(expression);
-        var res = EvaluateTree(root);
+        Root = BuildExpressionTree(expression); // Build the tree and set Root
+        var res = EvaluateTree(Root);
         return Math.Round(res, 10);
     }
 
-    private Node BuildExpressionTree(string expression)
+    private BinaryTreeNode BuildExpressionTree(string expression)
     {
         var tokens = Tokenize(expression);
         var postfix = ConvertToPostfix(tokens);
         return BuildTreeFromPostfix(postfix);
     }
 
-    private double EvaluateTree(Node root)
+    private double EvaluateTree(BinaryTreeNode root)
     {
         if (root == null) return 0;
         if (root.Left == null && root.Right == null) // Leaf node
@@ -120,25 +122,27 @@ public class BinaryTree
         return output;
     }
 
-    private Node BuildTreeFromPostfix(List<string> postfix)
+    private BinaryTreeNode BuildTreeFromPostfix(List<string> postfix)
     {
-        var stack = new Stack<Node>();
+        var stack = new Stack<BinaryTreeNode>();
 
         foreach (var token in postfix)
         {
             if (double.TryParse(token, out _))
             {
-                stack.Push(new Node(token));
+                stack.Push(new BinaryTreeNode(token));
             }
             else
             {
                 var right = stack.Pop();
                 var left = stack.Pop();
-                var node = new Node(token) { Left = left, Right = right };
+                var node = new BinaryTreeNode(token) { Left = left, Right = right };
                 stack.Push(node);
             }
         }
 
         return stack.Pop();
     }
+
+
 }

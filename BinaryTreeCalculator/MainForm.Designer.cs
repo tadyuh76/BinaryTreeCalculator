@@ -88,9 +88,14 @@ namespace BinaryTreeCalculator
             buttonAC = new RoundedButton();
             buttonEqual = new RoundedButton();
             buttonDel = new RoundedButton();
+            separationLine = new PictureBox();
+            rightPanel = new Panel();
+            treeViewerLabel = new Label();
             navBar.SuspendLayout();
             leftPanel.SuspendLayout();
             calculatorButtonGrid.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)separationLine).BeginInit();
+            rightPanel.SuspendLayout();
             SuspendLayout();
             // 
             // navBar
@@ -173,9 +178,9 @@ namespace BinaryTreeCalculator
             secondaryTextBox.BorderStyle = BorderStyle.None;
             secondaryTextBox.Font = new Font("Arial", 16F);
             secondaryTextBox.ForeColor = Color.DimGray;
-            secondaryTextBox.Location = new Point(195, 20);
+            secondaryTextBox.Location = new Point(25, 20);
             secondaryTextBox.Name = "secondaryTextBox";
-            secondaryTextBox.Size = new Size(100, 25);
+            secondaryTextBox.Size = new Size(270, 25);
             secondaryTextBox.TabIndex = 3;
             secondaryTextBox.TextAlign = HorizontalAlignment.Right;
             // 
@@ -652,12 +657,44 @@ namespace BinaryTreeCalculator
             buttonDel.UseVisualStyleBackColor = false;
             buttonDel.Click += buttonDel_Click;
             // 
+            // separationLine
+            // 
+            separationLine.BackColor = Color.FromArgb(30, 30, 30);
+            separationLine.Location = new Point(0, 0);
+            separationLine.Name = "separationLine";
+            separationLine.Size = new Size(2, 468);
+            separationLine.TabIndex = 4;
+            separationLine.TabStop = false;
+            // 
+            // rightPanel
+            // 
+            rightPanel.Controls.Add(treeViewerLabel);
+            rightPanel.Controls.Add(separationLine);
+            rightPanel.Location = new Point(320, 32);
+            rightPanel.Name = "rightPanel";
+            rightPanel.Size = new Size(480, 468);
+            rightPanel.TabIndex = 5;
+            rightPanel.Paint += rightPanel_Paint;
+            // 
+            // treeViewerLabel
+            // 
+            treeViewerLabel.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            treeViewerLabel.AutoSize = true;
+            treeViewerLabel.Font = new Font("Arial", 16F, FontStyle.Bold);
+            treeViewerLabel.Location = new Point(172, 20);
+            treeViewerLabel.Name = "treeViewerLabel";
+            treeViewerLabel.Size = new Size(135, 26);
+            treeViewerLabel.TabIndex = 0;
+            treeViewerLabel.Text = "Tree Viewer";
+            treeViewerLabel.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(9F, 18F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Black;
             ClientSize = new Size(800, 500);
+            Controls.Add(rightPanel);
             Controls.Add(leftPanel);
             Controls.Add(navBar);
             Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -671,6 +708,9 @@ namespace BinaryTreeCalculator
             leftPanel.ResumeLayout(false);
             leftPanel.PerformLayout();
             calculatorButtonGrid.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)separationLine).EndInit();
+            rightPanel.ResumeLayout(false);
+            rightPanel.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -704,5 +744,8 @@ namespace BinaryTreeCalculator
         private RoundedButton buttonDel;
         private TextBox primaryTextBox;
         private TextBox secondaryTextBox;
+        private PictureBox separationLine;
+        private Panel rightPanel;
+        private Label treeViewerLabel;
     }
 }
