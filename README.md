@@ -41,10 +41,7 @@ Follow these instructions to set up and run the project on your local machine.
    git clone https://github.com/tadyuh76/BinaryTreeCalculator.git
 2. Open the solution file `BinaryTreeCalculator.sln` in Visual Studio.
 
-3. Build the project:
-   - Press `Ctrl + Shift + B`.
-
-4. Run the application:
+3. Run the application:
    - Press `F5`.
 
 ## 📝 Usage
