@@ -32,11 +32,14 @@ public class BinaryTree
     {
         var tokens = Tokenize(expression);
         var postfix = ConvertToPostfix(tokens);
+
+        Debug.Print("tokens: ");
         foreach (var t in tokens)
         {
             Debug.Print(t);
         }
-        Debug.Print("");
+
+        Debug.Print("postfix: ");
         foreach (var p in postfix)
         {
             Debug.Print(p);
@@ -55,10 +58,10 @@ public class BinaryTree
 
         return root.Value switch
         {
-            "+" => left + right,
-            "-" => left - right,
-            "*" => left * right,
-            "/" => left / right,
+            Constants.PlusSign => left + right,
+            Constants.MinusSign => left - right,
+            Constants.MultiplicationSign => left * right,
+            Constants.DivisionSign => left / right,
             _ => throw new InvalidOperationException("Invalid operator")
         };
     }
@@ -82,7 +85,7 @@ public class BinaryTree
                 tokens.Add(number);
             }
             else if (expression[i] == '-' &&
-                    (i == 0 || "+-*/(".Contains(expression[i - 1].ToString())))
+                    (i == 0 || Constants.AllSignsExceptClosing.Contains(expression[i - 1].ToString())))
             {
                 // Handle negative numbers
                 string number = "-";
@@ -105,7 +108,7 @@ public class BinaryTree
                     (i > 1 && expression[i - 1] == ')' && char.IsDigit(expression[i-2])))
                 {
                     // Add implicit multiplication before '('
-                    tokens.Add("*");
+                    tokens.Add(Constants.MultiplicationSign);
                 }
                 tokens.Add(expression[i].ToString());
                 i++;
@@ -134,7 +137,7 @@ public class BinaryTree
     {
         var output = new List<string>();
         var operators = new Stack<string>();
-        var precedence = new Dictionary<string, int> { { "+", 1 }, { "-", 1 }, { "*", 2 }, { "/", 2 } };
+        var precedence = new Dictionary<string, int> { { "+", 1 }, { "-", 1 }, { Constants.MultiplicationSign, 2 }, { Constants.DivisionSign, 2 } };
 
         foreach (var token in tokens)
         {

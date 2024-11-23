@@ -8,4 +8,14 @@ public static class Constants
     public static readonly Color EqualSignColor = ColorTranslator.FromHtml("#875931");
     public static readonly Color ExpressionColor = ColorTranslator.FromHtml("#904D4D");
     public static readonly Color OperantColor = ColorTranslator.FromHtml("#4D5390");
+
+    public const string PlusSign = "+";
+    public const string MinusSign = "-";
+    public const string MultiplicationSign = "×";
+    public const string DivisionSign = "÷";
+    public const string OpeningParenthesisSign = "(";
+    public const string ClosingParenthesisSign = ")";
+
+    public const string AllSigns = PlusSign + MinusSign + MultiplicationSign + DivisionSign + OpeningParenthesisSign + ClosingParenthesisSign;
+    public const string AllSignsExceptClosing = PlusSign + MinusSign + MultiplicationSign + DivisionSign + OpeningParenthesisSign;
 }

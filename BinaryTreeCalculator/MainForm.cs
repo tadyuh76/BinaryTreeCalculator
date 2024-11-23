@@ -58,8 +58,8 @@ namespace BinaryTreeCalculator
         private void buttonDot_Click(object sender, EventArgs e) => UpdateExpression(".");
         private void buttonPlus_Click(object sender, EventArgs e) => UpdateExpression("+");
         private void buttonMinus_Click(object sender, EventArgs e) => UpdateExpression("-");
-        private void buttonMultiply_Click(object sender, EventArgs e) => UpdateExpression("*");
-        private void buttonDivide_Click(object sender, EventArgs e) => UpdateExpression("/");
+        private void buttonMultiply_Click(object sender, EventArgs e) => UpdateExpression(Constants.MultiplicationSign);
+        private void buttonDivide_Click(object sender, EventArgs e) => UpdateExpression(Constants.DivisionSign);
         private void buttonOpen_Click(object sender, EventArgs e) => UpdateExpression("(");
         private void buttonClose_Click(object sender, EventArgs e) => UpdateExpression(")");
 
@@ -128,7 +128,7 @@ namespace BinaryTreeCalculator
             int panelWidth = rightPanel.Width;
             int panelHeight = rightPanel.Height;
 
-            int nodeRadius = 20; // Radius of each node circle
+            int nodeRadius = 22; // Radius of each node circle
             int verticalSpacing = 50; // Vertical spacing between levels
 
             // Calculate the total height of the tree
@@ -189,8 +189,20 @@ namespace BinaryTreeCalculator
                 Alignment = StringAlignment.Center,
                 LineAlignment = StringAlignment.Center
             };
-            var truncatedVal = node.Value.Substring(0, Math.Min(4, node.Value.Length));
-            g.DrawString(truncatedVal, new Font("Arial", 10), Brushes.White, circleBounds, format);
+            var truncatedVal = IsExpressionNode(node) ? node.Value : RoundedToFourChars(node.Value);
+            var fontSize = IsExpressionNode(node) ? 14 : 10;
+            g.DrawString(truncatedVal, new Font("Consolas", fontSize), Brushes.White, circleBounds, format);
+        }
+
+        string RoundedToFourChars(string number)
+        {
+            var valid = double.TryParse(number, out double parsed);
+            if (parsed < 0) return Math.Round(parsed, 2).ToString();
+
+            return valid ? parsed.ToString("0.###").Length <= 5
+                ? parsed.ToString("0.###")
+                : parsed.ToString("0E+0")
+            : "Invalid";
         }
 
         private void RefreshRightPanel()
@@ -205,26 +217,14 @@ namespace BinaryTreeCalculator
             {
                 double result = BinaryTree.EvaluateExpression(Expression);
 
-                // Update secondary text box UI
                 secondaryTextBox.Text = result.ToString();
-
-                // Update secondary text box UI
-                //secondaryTextBox.Text = Expression.ToString();
                 secondaryTextBox.ForeColor = Constants.LightGreyColor;
                 secondaryTextBox.Font = new Font(secondaryTextBox.Font.FontFamily, 16);
 
-                //Expression = result.ToString(); // Update expression to the result
-                //IsResultDisplayed = true;
-
-                // Update the Tree viewer
-                //RefreshRightPanel();
             }
             catch (Exception)
             {
-                //primaryTextBox.Text = "Error";
                 secondaryTextBox.Clear();
-                //Expression = "";
-                //IsResultDisplayed = false;
             }
         }
 
@@ -236,7 +236,27 @@ namespace BinaryTreeCalculator
 
         private bool IsExpressionNode(BinaryTreeNode node)
         {
-            return "+-*/()".Contains(node.Value);
+            return Constants.AllSigns.Contains(node.Value);
+        }
+
+        private void minimizeButton_MouseEnter(object sender, EventArgs e)
+        {
+            minimizeButton.BackColor = Constants.GreyColor;
+        }
+
+        private void minimizeButton_MouseLeave(object sender, EventArgs e)
+        {
+            minimizeButton.BackColor = Constants.DarkGreyColor;
+        }
+
+        private void closeButton_MouseEnter(object sender, EventArgs e)
+        {
+            closeButton.BackColor = Constants.GreyColor;
+        }
+
+        private void closeButton_MouseLeave(object sender, EventArgs e)
+        {
+            closeButton.BackColor = Constants.DarkGreyColor;
         }
     }
 }
