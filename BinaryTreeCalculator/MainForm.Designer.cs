@@ -193,6 +193,7 @@ namespace BinaryTreeCalculator
             secondaryTextBox.ForeColor = Color.DimGray;
             secondaryTextBox.Location = new Point(25, 20);
             secondaryTextBox.Name = "secondaryTextBox";
+            secondaryTextBox.ReadOnly = true;
             secondaryTextBox.Size = new Size(270, 25);
             secondaryTextBox.TabIndex = 3;
             secondaryTextBox.TextAlign = HorizontalAlignment.Right;
@@ -205,6 +206,7 @@ namespace BinaryTreeCalculator
             primaryTextBox.ForeColor = Color.White;
             primaryTextBox.Location = new Point(25, 51);
             primaryTextBox.Name = "primaryTextBox";
+            primaryTextBox.ReadOnly = true;
             primaryTextBox.Size = new Size(270, 38);
             primaryTextBox.TabIndex = 2;
             primaryTextBox.TextAlign = HorizontalAlignment.Right;
