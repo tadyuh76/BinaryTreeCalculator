@@ -41,6 +41,8 @@ namespace BinaryTreeCalculator
             // Reset result UI
             secondaryTextBox.ForeColor = Color.Black;
             secondaryTextBox.Font = new Font(secondaryTextBox.Font.FontFamily, 16);
+
+            EvaluateExpression();
         }
 
         private void button0_Click(object sender, EventArgs e) => UpdateExpression("0");
@@ -82,6 +84,8 @@ namespace BinaryTreeCalculator
             {
                 primaryTextBox.Text = primaryTextBox.Text.Remove(primaryTextBox.Text.Length - 1);
                 Expression = Expression.Remove(Expression.Length - 1);
+
+                EvaluateExpression();
             }
         }
 
@@ -195,6 +199,35 @@ namespace BinaryTreeCalculator
             rightPanel.Update(); // Force immediate processing of the redraw
         }
 
+        private void EvaluateExpression()
+        {
+            try
+            {
+                double result = BinaryTree.EvaluateExpression(Expression);
+
+                // Update secondary text box UI
+                secondaryTextBox.Text = result.ToString();
+
+                // Update secondary text box UI
+                //secondaryTextBox.Text = Expression.ToString();
+                secondaryTextBox.ForeColor = Constants.LightGreyColor;
+                secondaryTextBox.Font = new Font(secondaryTextBox.Font.FontFamily, 16);
+
+                //Expression = result.ToString(); // Update expression to the result
+                //IsResultDisplayed = true;
+
+                // Update the Tree viewer
+                //RefreshRightPanel();
+            }
+            catch (Exception)
+            {
+                //primaryTextBox.Text = "Error";
+                secondaryTextBox.Clear();
+                //Expression = "";
+                //IsResultDisplayed = false;
+            }
+        }
+
         private int GetTreeDepth(BinaryTreeNode node)
         {
             if (node == null) return 0;
@@ -203,8 +236,7 @@ namespace BinaryTreeCalculator
 
         private bool IsExpressionNode(BinaryTreeNode node)
         {
-            var expressions = new string[] { "+", "-", "*", "/", "(", ")" };
-            return expressions.Contains(node.Value);
+            return "+-*/()".Contains(node.Value);
         }
     }
 }
