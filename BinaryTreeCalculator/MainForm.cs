@@ -139,7 +139,7 @@ namespace BinaryTreeCalculator
 
         private void DrawNode(Graphics g, BinaryTreeNode node, int x, int y, int horizontalSpacing, int nodeRadius, int verticalSpacing)
         {
-            if (node == null) return;            
+            if (node == null) return;
 
             // Pen for drawing lines
             Pen linePen = new Pen(Constants.LightGreyColor, 2f);
@@ -171,8 +171,8 @@ namespace BinaryTreeCalculator
             }
 
             // Determine the color for the current node
-            Brush nodeBrush = IsDigitNode(node) ? new SolidBrush(Constants.OperantColor)
-                                                 : new SolidBrush(Constants.ExpressionColor);
+            Brush nodeBrush = IsExpressionNode(node) ? new SolidBrush(Constants.ExpressionColor)
+                                                 : new SolidBrush(Constants.OperantColor);
 
             // Draw the current node as a circle
             RectangleF circleBounds = new RectangleF(x - nodeRadius, y - nodeRadius, 2 * nodeRadius, 2 * nodeRadius);
@@ -186,7 +186,7 @@ namespace BinaryTreeCalculator
                 LineAlignment = StringAlignment.Center
             };
             var truncatedVal = node.Value.Substring(0, Math.Min(4, node.Value.Length));
-            g.DrawString(truncatedVal, new Font("Arial", 10), Brushes.Black, circleBounds, format);
+            g.DrawString(truncatedVal, new Font("Arial", 10), Brushes.White, circleBounds, format);
         }
 
         private void RefreshRightPanel()
@@ -201,9 +201,10 @@ namespace BinaryTreeCalculator
             return 1 + Math.Max(GetTreeDepth(node.Left), GetTreeDepth(node.Right));
         }
 
-        private bool IsDigitNode(BinaryTreeNode node)
+        private bool IsExpressionNode(BinaryTreeNode node)
         {
-            return char.IsDigit(node.Value[0]);
+            var expressions = new string[] { "+", "-", "*", "/", "(", ")" };
+            return expressions.Contains(node.Value);
         }
     }
 }

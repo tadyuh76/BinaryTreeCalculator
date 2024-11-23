@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
+using System.Diagnostics;
 
 namespace BinaryTreeCalculator;
 
@@ -35,6 +32,15 @@ public class BinaryTree
     {
         var tokens = Tokenize(expression);
         var postfix = ConvertToPostfix(tokens);
+        foreach (var t in tokens)
+        {
+            Debug.Print(t);
+        }
+        Debug.Print("");
+        foreach (var p in postfix)
+        {
+            Debug.Print(p);
+        }
         return BuildTreeFromPostfix(postfix);
     }
 
@@ -74,6 +80,29 @@ public class BinaryTree
                     i++;
                 }
                 tokens.Add(number);
+            }
+            else if (expression[i] == '-' &&
+                    (i == 0 || "+-*/(".Contains(expression[i - 1].ToString())))
+            {
+                // Handle negative numbers
+                string number = "-";
+                i++;
+                while (i < expression.Length && (char.IsDigit(expression[i]) || expression[i] == '.'))
+                {
+                    number += expression[i];
+                    i++;
+                }
+                tokens.Add(number);
+            }
+            else if (expression[i] == '(')
+            {
+                if (i > 0 && (char.IsDigit(expression[i - 1]) || expression[i - 1] == ')'))
+                {
+                    // Add implicit multiplication before '('
+                    tokens.Add("*");
+                }
+                tokens.Add(expression[i].ToString());
+                i++;
             }
             else
             {
@@ -143,6 +172,4 @@ public class BinaryTree
 
         return stack.Pop();
     }
-
-
 }
