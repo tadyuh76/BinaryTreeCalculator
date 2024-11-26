@@ -102,8 +102,6 @@ public class BinaryTree
                 // 1. The last character is a digit
                 // 2. The last 2 characters is representing a sub expression
                 // Then add an implicit multiplication before '('
-                // This extra checking ensures that this kind of expression
-                // (1+2)3 is not allowed.
                 if ((i > 0 && char.IsDigit(expression[i - 1])) || 
                     (i > 1 && expression[i - 1] == ')' && char.IsDigit(expression[i-2])))
                 {
@@ -115,6 +113,8 @@ public class BinaryTree
             }
             else if (expression[i] == ')')
             {
+                // This extra checking ensures that this kind of expression
+                // (1+2)3 is not allowed.
                 if (i + 1 < expression.Length && char.IsDigit(expression[i + 1]))
                 {
                     throw new InvalidOperationException("Syntax Error");
