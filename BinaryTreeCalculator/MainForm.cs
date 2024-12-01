@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Drawing;
 
 namespace BinaryTreeCalculator
@@ -13,6 +14,7 @@ namespace BinaryTreeCalculator
         {
             InitializeComponent();
             InitializeCustomUI();
+            UpdateCaretPosition(0);
         }
 
         private void InitializeCustomUI()
@@ -23,27 +25,39 @@ namespace BinaryTreeCalculator
 
         private void UpdateExpression(string value)
         {
-            if (IsResultDisplayed && char.IsDigit(value[0])) // Reset on new digit
+            // Determine the current caret position
+            int caretPosition = primaryTextBox.SelectionStart;
+
+            // Handle resetting on new digit after displaying a result
+            if (IsResultDisplayed && char.IsDigit(value[0]))
             {
                 primaryTextBox.Clear();
                 Expression = "";
                 IsResultDisplayed = false;
+                caretPosition = 0; // Reset caret to the beginning
             }
-            else if (IsResultDisplayed) // Continue with current result
+            else if (IsResultDisplayed)
             {
                 Expression = primaryTextBox.Text; // Convert result to the new expression
                 IsResultDisplayed = false;
+                caretPosition = primaryTextBox.Text.Length; // Set caret to the end of the text
             }
 
-            primaryTextBox.Text += value;
-            Expression += value;
+            // Update the expression and textbox
+            primaryTextBox.Text = primaryTextBox.Text.Insert(caretPosition, value);
+            Expression = Expression.Insert(caretPosition, value);
 
-            // Reset result UI
+            // Adjust caret position to be after the inserted value
+            UpdateCaretPosition(caretPosition + value.Length);
+
+            // Reset result UI styling
             secondaryTextBox.ForeColor = Color.Black;
             secondaryTextBox.Font = new Font(secondaryTextBox.Font.FontFamily, 16);
 
+            // Reevaluate the expression
             EvaluateExpression();
         }
+
 
         private void button0_Click(object sender, EventArgs e) => UpdateExpression("0");
         private void button1_Click(object sender, EventArgs e) => UpdateExpression("1");
@@ -81,10 +95,12 @@ namespace BinaryTreeCalculator
 
         private void buttonDel_Click(object sender, EventArgs e)
         {
-            if (primaryTextBox.Text.Length > 0)
+            var caretPosition = primaryTextBox.SelectionStart;
+            if (caretPosition > 0)
             {
-                primaryTextBox.Text = primaryTextBox.Text.Remove(primaryTextBox.Text.Length - 1);
-                Expression = Expression.Remove(Expression.Length - 1);
+                primaryTextBox.Text = primaryTextBox.Text.Remove(caretPosition - 1, 1);
+                Expression = Expression.Remove(caretPosition - 1, 1);
+                UpdateCaretPosition(caretPosition - 1);
 
                 EvaluateExpression();
             }
@@ -92,6 +108,8 @@ namespace BinaryTreeCalculator
 
         private void buttonEqual_Click(object sender, EventArgs e)
         {
+            if (Expression == "") return;
+
             try
             {
                 double result = BinaryTree.EvaluateExpression(Expression);
@@ -104,7 +122,8 @@ namespace BinaryTreeCalculator
                 secondaryTextBox.ForeColor = Constants.LightGreyColor;
                 secondaryTextBox.Font = new Font(secondaryTextBox.Font.FontFamily, 16);
 
-                Expression = result.ToString(); // Update expression to the result
+                // Update expression to the result
+                Expression = result.ToString(); 
                 IsResultDisplayed = true;
 
                 // Update the Tree viewer
@@ -216,11 +235,14 @@ namespace BinaryTreeCalculator
         {
             try
             {
-                double result = BinaryTree.EvaluateExpression(Expression);
+                string result = BinaryTree.EvaluateExpression(Expression).ToString();
 
-                secondaryTextBox.Text = result.ToString();
-                secondaryTextBox.ForeColor = Constants.LightGreyColor;
-                secondaryTextBox.Font = new Font(secondaryTextBox.Font.FontFamily, 16);
+                if (result != primaryTextBox.Text)
+                {
+                    secondaryTextBox.Text = result.ToString();
+                    secondaryTextBox.ForeColor = Constants.LightGreyColor;
+                    secondaryTextBox.Font = new Font(secondaryTextBox.Font.FontFamily, 16);
+                }
 
             }
             catch (Exception)
@@ -260,6 +282,101 @@ namespace BinaryTreeCalculator
             closeButton.BackColor = Constants.DarkGreyColor;
         }
 
-        
+        private void primaryTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            int caretPosition = primaryTextBox.SelectionStart; // Current caret position
+            string? input = GetCharacterFromKeyEvent(e); // Get character from key event
+
+            if (!string.IsNullOrEmpty(input))
+            {
+                InsertAtCaret(input, caretPosition);
+                e.SuppressKeyPress = true; // Prevent default key behavior
+            }
+            else if (e.KeyCode == Keys.Back && caretPosition > 0) // Handle backspace
+            {
+                RemoveAtCaret(caretPosition - 1);
+                e.SuppressKeyPress = true;
+            }
+            else if (e.KeyCode == Keys.Left) // Handle left arrow
+            {
+                MoveCaret(-1);
+                e.SuppressKeyPress = true;
+            }
+            else if (e.KeyCode == Keys.Right) // Handle right arrow
+            {
+                MoveCaret(1);
+                e.SuppressKeyPress = true;
+            }
+            else
+            {
+                e.SuppressKeyPress = true; // Suppress all other keys
+            }
+
+        }
+
+        private string? GetCharacterFromKeyEvent(KeyEventArgs e)
+        {
+            // Handle shifted keys
+            if (e.Shift)
+            {
+                return e.KeyCode switch
+                {
+                    Keys.D0 => ")",
+                    Keys.D9 => "(",
+                    Keys.Oemplus => "+",
+                    Keys.D8 => Constants.MultiplicationSign,
+                    Keys.D6 => Constants.PowerSign,
+                    _ => null
+                };
+            }
+
+            // Handle unshifted keys
+            return e.KeyCode switch
+            {
+                Keys.D0 => "0",
+                Keys.D1 => "1",
+                Keys.D2 => "2",
+                Keys.D3 => "3",
+                Keys.D4 => "4",
+                Keys.D5 => "5",
+                Keys.D6 => "6",
+                Keys.D7 => "7",
+                Keys.D8 => "8",
+                Keys.D9 => "9",
+                Keys.OemMinus => "-",
+                Keys.OemPeriod => ".",
+                Keys.OemQuestion => Constants.DivisionSign,
+                _ => null
+            };
+        }
+        private void InsertAtCaret(string input, int caretPosition)
+        {
+            UpdateExpression(input);
+        }
+
+        private void RemoveAtCaret(int caretPosition)
+        {
+            primaryTextBox.Text = primaryTextBox.Text.Remove(caretPosition, 1);
+            Expression = Expression.Remove(caretPosition, 1);
+            UpdateCaretPosition(caretPosition); // Move caret back to where the character was removed
+            EvaluateExpression();
+        }
+
+        private void UpdateCaretPosition(int position)
+        {
+            primaryTextBox.SelectionStart = position;
+            primaryTextBox.SelectionLength = 0; // Ensure no text is selected
+            primaryTextBox.Focus(); // Keep the focus on the TextBox
+        }
+
+        private void MoveCaret(int offset)
+        {
+            int newPosition = Math.Clamp(primaryTextBox.SelectionStart + offset, 0, primaryTextBox.Text.Length);
+            UpdateCaretPosition(newPosition);
+        }
+
+        private void leftButton_Click(object sender, EventArgs e) => MoveCaret(-1);
+
+        private void rightButton_Click(object sender, EventArgs e) => MoveCaret(1);
     }
 }

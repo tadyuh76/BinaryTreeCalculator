@@ -102,15 +102,10 @@ public class BinaryTree
             }
             else if (expression[i] == '(')
             {
-                // 1. The last character is a digit
-                // 2. The last 2 characters is representing a sub expression
+                // If the last character is a digit or a closing parenthesis
                 // Then add an implicit multiplication before '('
-                // This extra checking ensures that this kind of expression
-                // (1+2)3 is not allowed.
-                if ((i > 0 && char.IsDigit(expression[i - 1])) ||
-                    (i > 1 && expression[i - 1] == ')' && char.IsDigit(expression[i - 2])))
-                {
-                    // Add implicit multiplication before '('
+                if (i > 0 && (char.IsDigit(expression[i - 1]) || expression[i - 1] == ')'))
+                { 
                     tokens.Add(Constants.MultiplicationSign);
                 }
                 tokens.Add(expression[i].ToString());
@@ -118,12 +113,25 @@ public class BinaryTree
             }
             else if (expression[i] == ')')
             {
+                // This extra checking ensures that this kind of expression
+                // (1+2)3 is not allowed.
                 if (i + 1 < expression.Length && char.IsDigit(expression[i + 1]))
                 {
                     throw new InvalidOperationException("Syntax Error");
                 }
 
                 tokens.Add(expression[i].ToString());
+                i++;
+            }
+            else if (expression[i].ToString() == Constants.SqrtSign)
+            {
+                // Add implicit multiplication before "sqrt"
+                if (i > 0 && (char.IsDigit(expression[i - 1]) || expression[i - 1] == ')'))
+                {
+                    tokens.Add(Constants.MultiplicationSign);
+                }
+
+                tokens.Add(Constants.SqrtSign);
                 i++;
             }
             else

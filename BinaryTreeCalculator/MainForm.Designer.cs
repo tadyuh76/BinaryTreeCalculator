@@ -69,9 +69,7 @@ namespace BinaryTreeCalculator
             secondaryTextBox = new TextBox();
             primaryTextBox = new TextBox();
             calculatorButtonGrid = new TableLayoutPanel();
-            roundedButton1 = new RoundedButton();
-            buttonDot = new RoundedButton();
-            button0 = new RoundedButton();
+            buttonEqual = new RoundedButton();
             button1 = new RoundedButton();
             button2 = new RoundedButton();
             button3 = new RoundedButton();
@@ -85,16 +83,18 @@ namespace BinaryTreeCalculator
             buttonMinus = new RoundedButton();
             buttonMultiply = new RoundedButton();
             buttonDivide = new RoundedButton();
-            buttonOpen = new RoundedButton();
+            sqrtButton = new RoundedButton();
             buttonClose = new RoundedButton();
+            powerButton = new RoundedButton();
+            buttonDot = new RoundedButton();
+            buttonOpen = new RoundedButton();
+            button0 = new RoundedButton();
             buttonAC = new RoundedButton();
-            buttonEqual = new RoundedButton();
+            leftButton = new RoundedButton();
+            roundedButton1 = new RoundedButton();
+            rightButton = new RoundedButton();
             rightPanel = new Panel();
             treeViewerLabel = new Label();
-            powerButton = new RoundedButton();
-            roundedButton5 = new RoundedButton();
-            roundedButton2 = new RoundedButton();
-            sqrtButton = new RoundedButton();
             navBar.SuspendLayout();
             leftPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)separationLine).BeginInit();
@@ -210,10 +210,10 @@ namespace BinaryTreeCalculator
             primaryTextBox.ForeColor = Color.White;
             primaryTextBox.Location = new Point(25, 67);
             primaryTextBox.Name = "primaryTextBox";
-            primaryTextBox.ReadOnly = true;
             primaryTextBox.Size = new Size(270, 38);
             primaryTextBox.TabIndex = 2;
             primaryTextBox.TextAlign = HorizontalAlignment.Right;
+            primaryTextBox.KeyDown += primaryTextBox_KeyDown;
             // 
             // calculatorButtonGrid
             // 
@@ -243,9 +243,9 @@ namespace BinaryTreeCalculator
             calculatorButtonGrid.Controls.Add(buttonOpen, 0, 5);
             calculatorButtonGrid.Controls.Add(button0, 1, 5);
             calculatorButtonGrid.Controls.Add(buttonAC, 0, 0);
-            calculatorButtonGrid.Controls.Add(roundedButton5, 1, 0);
+            calculatorButtonGrid.Controls.Add(leftButton, 1, 0);
             calculatorButtonGrid.Controls.Add(roundedButton1, 3, 0);
-            calculatorButtonGrid.Controls.Add(roundedButton2, 2, 0);
+            calculatorButtonGrid.Controls.Add(rightButton, 2, 0);
             calculatorButtonGrid.Dock = DockStyle.Bottom;
             calculatorButtonGrid.GrowStyle = TableLayoutPanelGrowStyle.FixedSize;
             calculatorButtonGrid.Location = new Point(0, 128);
@@ -262,68 +262,26 @@ namespace BinaryTreeCalculator
             calculatorButtonGrid.Size = new Size(320, 440);
             calculatorButtonGrid.TabIndex = 1;
             // 
-            // roundedButton1
+            // buttonEqual
             // 
-            roundedButton1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            roundedButton1.BackColor = SystemColors.ActiveBorder;
-            roundedButton1.BorderColor = Color.Black;
-            roundedButton1.BorderRadius = 60;
-            roundedButton1.BorderSize = 0;
-            roundedButton1.FlatAppearance.BorderSize = 0;
-            roundedButton1.FlatStyle = FlatStyle.Flat;
-            roundedButton1.Font = new Font("Consolas", 16F);
-            roundedButton1.ForeColor = Color.FromArgb(30, 30, 30);
-            roundedButton1.Location = new Point(235, 5);
-            roundedButton1.Margin = new Padding(5);
-            roundedButton1.Name = "roundedButton1";
-            roundedButton1.OriginalBackColor = SystemColors.ActiveBorder;
-            roundedButton1.Size = new Size(60, 60);
-            roundedButton1.TabIndex = 20;
-            roundedButton1.Text = "DEL";
-            roundedButton1.UseVisualStyleBackColor = false;
-            roundedButton1.Click += buttonDel_Click;
-            // 
-            // buttonDot
-            // 
-            buttonDot.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            buttonDot.BackColor = Color.FromArgb(20, 20, 20);
-            buttonDot.BorderColor = Color.Black;
-            buttonDot.BorderRadius = 60;
-            buttonDot.BorderSize = 0;
-            buttonDot.FlatAppearance.BorderSize = 0;
-            buttonDot.FlatStyle = FlatStyle.Flat;
-            buttonDot.Font = new Font("Consolas", 16F);
-            buttonDot.ForeColor = Color.White;
-            buttonDot.Location = new Point(25, 75);
-            buttonDot.Margin = new Padding(5);
-            buttonDot.Name = "buttonDot";
-            buttonDot.OriginalBackColor = Color.FromArgb(20, 20, 20);
-            buttonDot.Size = new Size(60, 60);
-            buttonDot.TabIndex = 21;
-            buttonDot.Text = ".";
-            buttonDot.UseVisualStyleBackColor = false;
-            buttonDot.Click += buttonDot_Click;
-            // 
-            // button0
-            // 
-            button0.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            button0.BackColor = Color.FromArgb(46, 46, 46);
-            button0.BorderColor = Color.Black;
-            button0.BorderRadius = 60;
-            button0.BorderSize = 0;
-            button0.FlatAppearance.BorderSize = 0;
-            button0.FlatStyle = FlatStyle.Flat;
-            button0.Font = new Font("Consolas", 16F);
-            button0.ForeColor = Color.White;
-            button0.Location = new Point(95, 355);
-            button0.Margin = new Padding(5);
-            button0.Name = "button0";
-            button0.OriginalBackColor = Color.FromArgb(46, 46, 46);
-            button0.Size = new Size(60, 60);
-            button0.TabIndex = 0;
-            button0.Text = "0";
-            button0.UseVisualStyleBackColor = false;
-            button0.Click += button0_Click;
+            buttonEqual.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            buttonEqual.BackColor = Color.FromArgb(200, 100, 40);
+            buttonEqual.BorderColor = Color.Black;
+            buttonEqual.BorderRadius = 60;
+            buttonEqual.BorderSize = 0;
+            buttonEqual.FlatAppearance.BorderSize = 0;
+            buttonEqual.FlatStyle = FlatStyle.Flat;
+            buttonEqual.Font = new Font("Consolas", 24F);
+            buttonEqual.ForeColor = Color.White;
+            buttonEqual.Location = new Point(235, 355);
+            buttonEqual.Margin = new Padding(5);
+            buttonEqual.Name = "buttonEqual";
+            buttonEqual.OriginalBackColor = Color.FromArgb(200, 100, 40);
+            buttonEqual.Size = new Size(60, 60);
+            buttonEqual.TabIndex = 18;
+            buttonEqual.Text = "=";
+            buttonEqual.UseVisualStyleBackColor = false;
+            buttonEqual.Click += buttonEqual_Click;
             // 
             // button1
             // 
@@ -598,26 +556,26 @@ namespace BinaryTreeCalculator
             buttonDivide.UseVisualStyleBackColor = false;
             buttonDivide.Click += buttonDivide_Click;
             // 
-            // buttonOpen
+            // sqrtButton
             // 
-            buttonOpen.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            buttonOpen.BackColor = Color.FromArgb(20, 20, 20);
-            buttonOpen.BorderColor = Color.Black;
-            buttonOpen.BorderRadius = 60;
-            buttonOpen.BorderSize = 0;
-            buttonOpen.FlatAppearance.BorderSize = 0;
-            buttonOpen.FlatStyle = FlatStyle.Flat;
-            buttonOpen.Font = new Font("Consolas", 16F);
-            buttonOpen.ForeColor = Color.White;
-            buttonOpen.Location = new Point(25, 355);
-            buttonOpen.Margin = new Padding(5);
-            buttonOpen.Name = "buttonOpen";
-            buttonOpen.OriginalBackColor = Color.FromArgb(20, 20, 20);
-            buttonOpen.Size = new Size(60, 60);
-            buttonOpen.TabIndex = 15;
-            buttonOpen.Text = "(";
-            buttonOpen.UseVisualStyleBackColor = false;
-            buttonOpen.Click += buttonOpen_Click;
+            sqrtButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            sqrtButton.BackColor = Color.FromArgb(135, 89, 49);
+            sqrtButton.BorderColor = Color.Black;
+            sqrtButton.BorderRadius = 60;
+            sqrtButton.BorderSize = 0;
+            sqrtButton.FlatAppearance.BorderSize = 0;
+            sqrtButton.FlatStyle = FlatStyle.Flat;
+            sqrtButton.Font = new Font("Consolas", 20F);
+            sqrtButton.ForeColor = Color.White;
+            sqrtButton.Location = new Point(95, 75);
+            sqrtButton.Margin = new Padding(5);
+            sqrtButton.Name = "sqrtButton";
+            sqrtButton.OriginalBackColor = Color.FromArgb(135, 89, 49);
+            sqrtButton.Size = new Size(60, 60);
+            sqrtButton.TabIndex = 28;
+            sqrtButton.Text = "√";
+            sqrtButton.UseVisualStyleBackColor = false;
+            sqrtButton.Click += sqrtButton_Click;
             // 
             // buttonClose
             // 
@@ -640,6 +598,90 @@ namespace BinaryTreeCalculator
             buttonClose.UseVisualStyleBackColor = false;
             buttonClose.Click += buttonClose_Click;
             // 
+            // powerButton
+            // 
+            powerButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            powerButton.BackColor = Color.FromArgb(135, 89, 49);
+            powerButton.BorderColor = Color.Black;
+            powerButton.BorderRadius = 60;
+            powerButton.BorderSize = 0;
+            powerButton.FlatAppearance.BorderSize = 0;
+            powerButton.FlatStyle = FlatStyle.Flat;
+            powerButton.Font = new Font("Consolas", 20F);
+            powerButton.ForeColor = Color.White;
+            powerButton.Location = new Point(165, 75);
+            powerButton.Margin = new Padding(5);
+            powerButton.Name = "powerButton";
+            powerButton.OriginalBackColor = Color.FromArgb(135, 89, 49);
+            powerButton.Size = new Size(60, 60);
+            powerButton.TabIndex = 23;
+            powerButton.Text = "^";
+            powerButton.UseVisualStyleBackColor = false;
+            powerButton.Click += powerButton_Click;
+            // 
+            // buttonDot
+            // 
+            buttonDot.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            buttonDot.BackColor = Color.FromArgb(20, 20, 20);
+            buttonDot.BorderColor = Color.Black;
+            buttonDot.BorderRadius = 60;
+            buttonDot.BorderSize = 0;
+            buttonDot.FlatAppearance.BorderSize = 0;
+            buttonDot.FlatStyle = FlatStyle.Flat;
+            buttonDot.Font = new Font("Consolas", 16F);
+            buttonDot.ForeColor = Color.White;
+            buttonDot.Location = new Point(25, 75);
+            buttonDot.Margin = new Padding(5);
+            buttonDot.Name = "buttonDot";
+            buttonDot.OriginalBackColor = Color.FromArgb(20, 20, 20);
+            buttonDot.Size = new Size(60, 60);
+            buttonDot.TabIndex = 21;
+            buttonDot.Text = ".";
+            buttonDot.UseVisualStyleBackColor = false;
+            buttonDot.Click += buttonDot_Click;
+            // 
+            // buttonOpen
+            // 
+            buttonOpen.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            buttonOpen.BackColor = Color.FromArgb(20, 20, 20);
+            buttonOpen.BorderColor = Color.Black;
+            buttonOpen.BorderRadius = 60;
+            buttonOpen.BorderSize = 0;
+            buttonOpen.FlatAppearance.BorderSize = 0;
+            buttonOpen.FlatStyle = FlatStyle.Flat;
+            buttonOpen.Font = new Font("Consolas", 16F);
+            buttonOpen.ForeColor = Color.White;
+            buttonOpen.Location = new Point(25, 355);
+            buttonOpen.Margin = new Padding(5);
+            buttonOpen.Name = "buttonOpen";
+            buttonOpen.OriginalBackColor = Color.FromArgb(20, 20, 20);
+            buttonOpen.Size = new Size(60, 60);
+            buttonOpen.TabIndex = 15;
+            buttonOpen.Text = "(";
+            buttonOpen.UseVisualStyleBackColor = false;
+            buttonOpen.Click += buttonOpen_Click;
+            // 
+            // button0
+            // 
+            button0.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            button0.BackColor = Color.FromArgb(46, 46, 46);
+            button0.BorderColor = Color.Black;
+            button0.BorderRadius = 60;
+            button0.BorderSize = 0;
+            button0.FlatAppearance.BorderSize = 0;
+            button0.FlatStyle = FlatStyle.Flat;
+            button0.Font = new Font("Consolas", 16F);
+            button0.ForeColor = Color.White;
+            button0.Location = new Point(95, 355);
+            button0.Margin = new Padding(5);
+            button0.Name = "button0";
+            button0.OriginalBackColor = Color.FromArgb(46, 46, 46);
+            button0.Size = new Size(60, 60);
+            button0.TabIndex = 0;
+            button0.Text = "0";
+            button0.UseVisualStyleBackColor = false;
+            button0.Click += button0_Click;
+            // 
             // buttonAC
             // 
             buttonAC.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
@@ -661,26 +703,68 @@ namespace BinaryTreeCalculator
             buttonAC.UseVisualStyleBackColor = false;
             buttonAC.Click += buttonAC_Click;
             // 
-            // buttonEqual
+            // leftButton
             // 
-            buttonEqual.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            buttonEqual.BackColor = Color.FromArgb(200, 100, 40);
-            buttonEqual.BorderColor = Color.Black;
-            buttonEqual.BorderRadius = 60;
-            buttonEqual.BorderSize = 0;
-            buttonEqual.FlatAppearance.BorderSize = 0;
-            buttonEqual.FlatStyle = FlatStyle.Flat;
-            buttonEqual.Font = new Font("Consolas", 24F);
-            buttonEqual.ForeColor = Color.White;
-            buttonEqual.Location = new Point(235, 355);
-            buttonEqual.Margin = new Padding(5);
-            buttonEqual.Name = "buttonEqual";
-            buttonEqual.OriginalBackColor = Color.FromArgb(200, 100, 40);
-            buttonEqual.Size = new Size(60, 60);
-            buttonEqual.TabIndex = 18;
-            buttonEqual.Text = "=";
-            buttonEqual.UseVisualStyleBackColor = false;
-            buttonEqual.Click += buttonEqual_Click;
+            leftButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            leftButton.BackColor = SystemColors.ActiveBorder;
+            leftButton.BorderColor = Color.Black;
+            leftButton.BorderRadius = 60;
+            leftButton.BorderSize = 0;
+            leftButton.FlatAppearance.BorderSize = 0;
+            leftButton.FlatStyle = FlatStyle.Flat;
+            leftButton.Font = new Font("Consolas", 16F);
+            leftButton.ForeColor = Color.FromArgb(30, 30, 30);
+            leftButton.Location = new Point(95, 5);
+            leftButton.Margin = new Padding(5);
+            leftButton.Name = "leftButton";
+            leftButton.OriginalBackColor = SystemColors.ActiveBorder;
+            leftButton.Size = new Size(60, 60);
+            leftButton.TabIndex = 26;
+            leftButton.Text = "<";
+            leftButton.UseVisualStyleBackColor = false;
+            leftButton.Click += leftButton_Click;
+            // 
+            // roundedButton1
+            // 
+            roundedButton1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            roundedButton1.BackColor = SystemColors.ActiveBorder;
+            roundedButton1.BorderColor = Color.Black;
+            roundedButton1.BorderRadius = 60;
+            roundedButton1.BorderSize = 0;
+            roundedButton1.FlatAppearance.BorderSize = 0;
+            roundedButton1.FlatStyle = FlatStyle.Flat;
+            roundedButton1.Font = new Font("Consolas", 16F);
+            roundedButton1.ForeColor = Color.FromArgb(30, 30, 30);
+            roundedButton1.Location = new Point(235, 5);
+            roundedButton1.Margin = new Padding(5);
+            roundedButton1.Name = "roundedButton1";
+            roundedButton1.OriginalBackColor = SystemColors.ActiveBorder;
+            roundedButton1.Size = new Size(60, 60);
+            roundedButton1.TabIndex = 20;
+            roundedButton1.Text = "DEL";
+            roundedButton1.UseVisualStyleBackColor = false;
+            roundedButton1.Click += buttonDel_Click;
+            // 
+            // rightButton
+            // 
+            rightButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            rightButton.BackColor = SystemColors.ActiveBorder;
+            rightButton.BorderColor = Color.Black;
+            rightButton.BorderRadius = 60;
+            rightButton.BorderSize = 0;
+            rightButton.FlatAppearance.BorderSize = 0;
+            rightButton.FlatStyle = FlatStyle.Flat;
+            rightButton.Font = new Font("Consolas", 16F);
+            rightButton.ForeColor = Color.FromArgb(30, 30, 30);
+            rightButton.Location = new Point(165, 5);
+            rightButton.Margin = new Padding(5);
+            rightButton.Name = "rightButton";
+            rightButton.OriginalBackColor = SystemColors.ActiveBorder;
+            rightButton.Size = new Size(60, 60);
+            rightButton.TabIndex = 27;
+            rightButton.Text = ">";
+            rightButton.UseVisualStyleBackColor = false;
+            rightButton.Click += rightButton_Click;
             // 
             // rightPanel
             // 
@@ -703,88 +787,6 @@ namespace BinaryTreeCalculator
             treeViewerLabel.TabIndex = 0;
             treeViewerLabel.Text = "Tree Viewer";
             treeViewerLabel.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // powerButton
-            // 
-            powerButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            powerButton.BackColor = Color.FromArgb(135, 89, 49);
-            powerButton.BorderColor = Color.Black;
-            powerButton.BorderRadius = 60;
-            powerButton.BorderSize = 0;
-            powerButton.FlatAppearance.BorderSize = 0;
-            powerButton.FlatStyle = FlatStyle.Flat;
-            powerButton.Font = new Font("Consolas", 20F);
-            powerButton.ForeColor = Color.White;
-            powerButton.Location = new Point(165, 75);
-            powerButton.Margin = new Padding(5);
-            powerButton.Name = "powerButton";
-            powerButton.OriginalBackColor = Color.FromArgb(135, 89, 49);
-            powerButton.Size = new Size(60, 60);
-            powerButton.TabIndex = 23;
-            powerButton.Text = "^";
-            powerButton.UseVisualStyleBackColor = false;
-            powerButton.Click += powerButton_Click;
-            // 
-            // roundedButton5
-            // 
-            roundedButton5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            roundedButton5.BackColor = SystemColors.ActiveBorder;
-            roundedButton5.BorderColor = Color.Black;
-            roundedButton5.BorderRadius = 60;
-            roundedButton5.BorderSize = 0;
-            roundedButton5.FlatAppearance.BorderSize = 0;
-            roundedButton5.FlatStyle = FlatStyle.Flat;
-            roundedButton5.Font = new Font("Consolas", 16F);
-            roundedButton5.ForeColor = Color.FromArgb(30, 30, 30);
-            roundedButton5.Location = new Point(95, 5);
-            roundedButton5.Margin = new Padding(5);
-            roundedButton5.Name = "roundedButton5";
-            roundedButton5.OriginalBackColor = SystemColors.ActiveBorder;
-            roundedButton5.Size = new Size(60, 60);
-            roundedButton5.TabIndex = 26;
-            roundedButton5.Text = "<";
-            roundedButton5.UseVisualStyleBackColor = false;
-            // 
-            // roundedButton2
-            // 
-            roundedButton2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            roundedButton2.BackColor = SystemColors.ActiveBorder;
-            roundedButton2.BorderColor = Color.Black;
-            roundedButton2.BorderRadius = 60;
-            roundedButton2.BorderSize = 0;
-            roundedButton2.FlatAppearance.BorderSize = 0;
-            roundedButton2.FlatStyle = FlatStyle.Flat;
-            roundedButton2.Font = new Font("Consolas", 16F);
-            roundedButton2.ForeColor = Color.FromArgb(30, 30, 30);
-            roundedButton2.Location = new Point(165, 5);
-            roundedButton2.Margin = new Padding(5);
-            roundedButton2.Name = "roundedButton2";
-            roundedButton2.OriginalBackColor = SystemColors.ActiveBorder;
-            roundedButton2.Size = new Size(60, 60);
-            roundedButton2.TabIndex = 27;
-            roundedButton2.Text = ">";
-            roundedButton2.UseVisualStyleBackColor = false;
-            // 
-            // sqrtButton
-            // 
-            sqrtButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            sqrtButton.BackColor = Color.FromArgb(135, 89, 49);
-            sqrtButton.BorderColor = Color.Black;
-            sqrtButton.BorderRadius = 60;
-            sqrtButton.BorderSize = 0;
-            sqrtButton.FlatAppearance.BorderSize = 0;
-            sqrtButton.FlatStyle = FlatStyle.Flat;
-            sqrtButton.Font = new Font("Consolas", 20F);
-            sqrtButton.ForeColor = Color.White;
-            sqrtButton.Location = new Point(95, 75);
-            sqrtButton.Margin = new Padding(5);
-            sqrtButton.Name = "sqrtButton";
-            sqrtButton.OriginalBackColor = Color.FromArgb(135, 89, 49);
-            sqrtButton.Size = new Size(60, 60);
-            sqrtButton.TabIndex = 28;
-            sqrtButton.Text = "√";
-            sqrtButton.UseVisualStyleBackColor = false;
-            sqrtButton.Click += sqrtButton_Click;
             // 
             // MainForm
             // 
@@ -846,8 +848,8 @@ namespace BinaryTreeCalculator
         private RoundedButton roundedButton1;
         private RoundedButton buttonDot;
         private RoundedButton powerButton;
-        private RoundedButton roundedButton2;
-        private RoundedButton roundedButton5;
+        private RoundedButton rightButton;
+        private RoundedButton leftButton;
         private RoundedButton sqrtButton;
     }
 }
