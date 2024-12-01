@@ -148,7 +148,7 @@ public class BinaryTree
     private List<string> ConvertToPostfix(List<string> tokens)
     {
         var output = new List<string>();
-        var operators = new Stack<string>();
+        var operators = new MyStack<string>();
         var precedence = new Dictionary<string, int>
             {
                 { Constants.PlusSign, 1 },
@@ -200,7 +200,7 @@ public class BinaryTree
 
     private BinaryTreeNode BuildTreeFromPostfix(List<string> postfix)
     {
-        var stack = new Stack<BinaryTreeNode>();
+        var stack = new MyStack<BinaryTreeNode>();
 
         foreach (var token in postfix)
         {
