@@ -106,6 +106,16 @@ public class BinaryTree
                 // Then add an implicit multiplication before '('
                 if (i > 0 && (char.IsDigit(expression[i - 1]) || expression[i - 1] == ')'))
                 { 
+                {
+                    // Add implicit multiplication before '('
+                {
+                    // Add implicit multiplication before '('
+                {
+                    // Add implicit multiplication before '('
+                {
+                    // Add implicit multiplication before '('
+                {
+                    // Add implicit multiplication before '('
                     tokens.Add(Constants.MultiplicationSign);
                 }
                 tokens.Add(expression[i].ToString());
@@ -206,7 +216,8 @@ public class BinaryTree
             if (double.TryParse(token, out _))
             {
                 stack.Push(new BinaryTreeNode(token));
-            }
+                var node = new BinaryTreeNode(token) { Left = left, Right = right };
+                stack.Push(node);
             else if (token == Constants.SqrtSign)
             {
                 var operand = stack.Pop(); // Only one operand
