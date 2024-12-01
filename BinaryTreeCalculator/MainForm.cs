@@ -56,10 +56,12 @@ namespace BinaryTreeCalculator
         private void button8_Click(object sender, EventArgs e) => UpdateExpression("8");
         private void button9_Click(object sender, EventArgs e) => UpdateExpression("9");
         private void buttonDot_Click(object sender, EventArgs e) => UpdateExpression(".");
-        private void buttonPlus_Click(object sender, EventArgs e) => UpdateExpression("+");
-        private void buttonMinus_Click(object sender, EventArgs e) => UpdateExpression("-");
+        private void buttonPlus_Click(object sender, EventArgs e) => UpdateExpression(Constants.PlusSign);
+        private void buttonMinus_Click(object sender, EventArgs e) => UpdateExpression(Constants.MinusSign);
         private void buttonMultiply_Click(object sender, EventArgs e) => UpdateExpression(Constants.MultiplicationSign);
         private void buttonDivide_Click(object sender, EventArgs e) => UpdateExpression(Constants.DivisionSign);
+        private void powerButton_Click(object sender, EventArgs e) => UpdateExpression(Constants.PowerSign);
+        private void sqrtButton_Click(object sender, EventArgs e) => UpdateExpression(Constants.SqrtSign);
         private void buttonOpen_Click(object sender, EventArgs e) => UpdateExpression("(");
         private void buttonClose_Click(object sender, EventArgs e) => UpdateExpression(")");
 
@@ -75,7 +77,6 @@ namespace BinaryTreeCalculator
             // Hide the Binary Tree in the right panel
             BinaryTree = new();
             RefreshRightPanel();
-
         }
 
         private void buttonDel_Click(object sender, EventArgs e)
@@ -258,5 +259,7 @@ namespace BinaryTreeCalculator
         {
             closeButton.BackColor = Constants.DarkGreyColor;
         }
+
+        
     }
 }

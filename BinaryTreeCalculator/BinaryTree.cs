@@ -62,8 +62,11 @@ public class BinaryTree
             Constants.MinusSign => left - right,
             Constants.MultiplicationSign => left * right,
             Constants.DivisionSign => left / right,
+            Constants.PowerSign => Math.Pow(left, right), // Power operator
+            Constants.SqrtSign => Math.Sqrt(left),       // Square root operator (only needs `left`)
             _ => throw new InvalidOperationException("Invalid operator")
         };
+
     }
 
     // Helpers (Tokenization, Postfix conversion, Tree building)
@@ -104,8 +107,8 @@ public class BinaryTree
                 // Then add an implicit multiplication before '('
                 // This extra checking ensures that this kind of expression
                 // (1+2)3 is not allowed.
-                if ((i > 0 && char.IsDigit(expression[i - 1])) || 
-                    (i > 1 && expression[i - 1] == ')' && char.IsDigit(expression[i-2])))
+                if ((i > 0 && char.IsDigit(expression[i - 1])) ||
+                    (i > 1 && expression[i - 1] == ')' && char.IsDigit(expression[i - 2])))
                 {
                     // Add implicit multiplication before '('
                     tokens.Add(Constants.MultiplicationSign);
@@ -137,13 +140,25 @@ public class BinaryTree
     {
         var output = new List<string>();
         var operators = new Stack<string>();
-        var precedence = new Dictionary<string, int> { { "+", 1 }, { "-", 1 }, { Constants.MultiplicationSign, 2 }, { Constants.DivisionSign, 2 } };
+        var precedence = new Dictionary<string, int>
+            {
+                { Constants.PlusSign, 1 },
+                { Constants.MinusSign, 1 },
+                { Constants.MultiplicationSign, 2 },
+                { Constants.DivisionSign, 2 },
+                { Constants.PowerSign, 3 }, // Higher precedence
+                { Constants.SqrtSign, 4 }  // Highest precedence
+            };
 
         foreach (var token in tokens)
         {
             if (double.TryParse(token, out _))
             {
                 output.Add(token);
+            }
+            else if (token == Constants.SqrtSign)
+            {
+                operators.Push(token);
             }
             else if (token == "(")
             {
@@ -157,9 +172,13 @@ public class BinaryTree
             }
             else
             {
-                while (operators.Count > 0 && precedence.ContainsKey(operators.Peek()) &&
-                       precedence[operators.Peek()] >= precedence[token])
+                while (operators.Count > 0 &&
+                    precedence.ContainsKey(operators.Peek()) &&
+                    precedence[operators.Peek()] >= precedence[token]
+                )
+                {
                     output.Add(operators.Pop());
+                }
                 operators.Push(token);
             }
         }
@@ -180,12 +199,16 @@ public class BinaryTree
             {
                 stack.Push(new BinaryTreeNode(token));
             }
+            else if (token == Constants.SqrtSign)
+            {
+                var operand = stack.Pop(); // Only one operand
+                stack.Push(new BinaryTreeNode(token) { Left = operand });
+            }
             else
             {
                 var right = stack.Pop();
                 var left = stack.Pop();
-                var node = new BinaryTreeNode(token) { Left = left, Right = right };
-                stack.Push(node);
+                stack.Push(new BinaryTreeNode(token) { Left = left, Right = right });
             }
         }
 

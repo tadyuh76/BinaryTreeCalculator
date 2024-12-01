@@ -13,9 +13,11 @@ public static class Constants
     public const string MinusSign = "-";
     public const string MultiplicationSign = "×";
     public const string DivisionSign = "÷";
+    public const string PowerSign = "^";
+    public const string SqrtSign = "√";
     public const string OpeningParenthesisSign = "(";
     public const string ClosingParenthesisSign = ")";
 
-    public const string AllSigns = PlusSign + MinusSign + MultiplicationSign + DivisionSign + OpeningParenthesisSign + ClosingParenthesisSign;
-    public const string AllSignsExceptClosing = PlusSign + MinusSign + MultiplicationSign + DivisionSign + OpeningParenthesisSign;
+    public const string AllSigns = "+-×÷√^()";
+    public const string AllSignsExceptClosing = "+-×÷√^(";
 }
