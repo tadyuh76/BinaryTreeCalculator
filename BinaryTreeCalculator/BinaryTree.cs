@@ -7,8 +7,8 @@ namespace BinaryTreeCalculator;
 public class BinaryTreeNode
 {
     public string Value { get; set; }
-    public BinaryTreeNode Left { get; set; }
-    public BinaryTreeNode Right { get; set; }
+    public BinaryTreeNode? Left { get; set; }
+    public BinaryTreeNode? Right { get; set; }
 
     public BinaryTreeNode(string value)
     {
@@ -19,7 +19,7 @@ public class BinaryTreeNode
 
 public class BinaryTree
 {
-    public BinaryTreeNode Root { get; private set; } // Expose the tree's root for visualization
+    public BinaryTreeNode? Root { get; private set; } // Expose the tree's root for visualization
 
     public double EvaluateExpression(string expression)
     {
@@ -47,7 +47,7 @@ public class BinaryTree
         return BuildTreeFromPostfix(postfix);
     }
 
-    private double EvaluateTree(BinaryTreeNode root)
+    private double EvaluateTree(BinaryTreeNode? root)
     {
         if (root == null) return 0;
         if (root.Left == null && root.Right == null) // Leaf node
@@ -105,15 +105,6 @@ public class BinaryTree
                 // If the last character is a digit or a closing parenthesis
                 // Then add an implicit multiplication before '('
                 if (i > 0 && (char.IsDigit(expression[i - 1]) || expression[i - 1] == ')'))
-                { 
-                {
-                    // Add implicit multiplication before '('
-                {
-                    // Add implicit multiplication before '('
-                {
-                    // Add implicit multiplication before '('
-                {
-                    // Add implicit multiplication before '('
                 {
                     // Add implicit multiplication before '('
                     tokens.Add(Constants.MultiplicationSign);
@@ -150,7 +141,7 @@ public class BinaryTree
                 i++;
             }
         }
-
+        
         return tokens;
     }
 
@@ -216,8 +207,7 @@ public class BinaryTree
             if (double.TryParse(token, out _))
             {
                 stack.Push(new BinaryTreeNode(token));
-                var node = new BinaryTreeNode(token) { Left = left, Right = right };
-                stack.Push(node);
+            }
             else if (token == Constants.SqrtSign)
             {
                 var operand = stack.Pop(); // Only one operand
@@ -229,8 +219,9 @@ public class BinaryTree
                 var left = stack.Pop();
                 stack.Push(new BinaryTreeNode(token) { Left = left, Right = right });
             }
-        }
+            }
 
-        return stack.Pop();
+            return stack.Pop();
+        }
     }
-}
+

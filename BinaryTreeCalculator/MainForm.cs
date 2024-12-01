@@ -251,7 +251,7 @@ namespace BinaryTreeCalculator
             }
         }
 
-        private int GetTreeDepth(BinaryTreeNode node)
+        private int GetTreeDepth(BinaryTreeNode? node)
         {
             if (node == null) return 0;
             return 1 + Math.Max(GetTreeDepth(node.Left), GetTreeDepth(node.Right));
