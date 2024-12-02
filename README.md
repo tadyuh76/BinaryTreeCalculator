@@ -1,20 +1,24 @@
 # Binary Tree Calculator
 
-A **C# WinForms-based calculator** that evaluates mathematical expressions using a binary tree structure. This project showcases the practical application of binary trees in parsing and evaluating arithmetic expressions efficiently.
+A **C# WinForms-based calculator** that evaluates mathematical expressions using a binary tree structure. This project demonstrates the practical application of binary trees in parsing and evaluating arithmetic expressions efficiently.
 
 ## ✨ Features
 
-- **Supported Operators**: Addition (`+`), subtraction (`-`), multiplication (`*`), and division (`/`).
-- **Parentheses Support**: Evaluates nested expressions with parentheses accurately.
+- **Supported Operators**: Addition (`+`), subtraction (`-`), multiplication (`*`), division (`/`), and power (`^`).
+- **Parentheses Support**: Accurately evaluates nested expressions with parentheses.
 - **Floating-Point Arithmetic**: Supports decimal values for precise calculations.
-- **User-Friendly Functions**:
+- **Interactive Interface**: A user-friendly interface with clickable buttons to input expressions.
+- **Custom Rounded Buttons**: Stylish, rounded buttons for a modern look and feel.
+- **Responsive UI**: Button background color lightens when hovered for better user interaction.
+- **Expression Editing**: 
   - **AC**: Clears the entire expression.
-  - **Del**: Deletes the last character in the expression.
+  - **Del**: Deletes the last character from the expression.
+  - **Caret Movement**: Allows moving the caret left or right in the expression for easier editing.
 - **Error Handling**: Provides feedback for invalid expressions or division by zero.
 
-## 🖼️ Demo
-![image](https://github.com/user-attachments/assets/b2ac0e7b-d7b2-42b7-8d87-d061022aa211)
 
+## 🖼️ Demo
+![image](https://github.com/user-attachments/assets/85ec1116-699a-4b00-a8da-1569fc559202)
 
 ## 🛠️ How It Works
 
@@ -41,12 +45,11 @@ Follow these instructions to set up and run the project on your local machine.
    git clone https://github.com/tadyuh76/BinaryTreeCalculator.git
 2. Open the solution file `BinaryTreeCalculator.sln` in Visual Studio.
 
-3. Run the application:
-   - Press `F5`.
+3. Run the application: Press `F5`.
 
 ## 📝 Usage
 
-1. Enter a mathematical expression using the on-screen buttons.
+1. Enter a mathematical expression using the on-screen buttons or keyboard.
 2. Click the `=` button to evaluate the expression.
 3. Use `AC` to clear the expression or `Del` to delete the last character.
 
