@@ -1,29 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace BinaryTreeCalculator;
 
-namespace BinaryTreeCalculator;
-
+// Lớp MyStack sử dụng generic T để quản lý kiểu dữ liệu
 public class MyStack<T>
 {
-    // Node class for the stack
+    // Lớp Node để đại diện cho từng phần tử trong stack
     private class Node
     {
-        public T Data { get; }
-        public Node? Next { get; }
+        public T Data { get; } // Dữ liệu của node
+        public Node? Next { get; } // Con trỏ tới node tiếp theo
 
         public Node(T data, Node? next)
         {
-            Data = data;
-            Next = next;
+            Data = data; // Gán giá trị dữ liệu
+            Next = next; // Gán giá trị node tiếp theo
         }
     }
 
-    private Node? top; // Top of the stack
-    private int count; // Number of elements in the stack
+    private Node? top; // Phần tử ở trên cùng của stack
+    private int count; // Số lượng phần tử trong stack
 
+    // Hàm khởi tạo stack, ban đầu top là null và count = 0
     public MyStack()
     {
         top = null;
@@ -31,55 +27,55 @@ public class MyStack<T>
     }
 
     /// <summary>
-    /// Pushes an item onto the stack.
+    /// Thêm một phần tử vào stack.
     /// </summary>
-    /// <param name="item">The item to push onto the stack.</param>
+    /// <param name="item">Phần tử cần thêm vào stack.</param>
     public void Push(T item)
     {
-        top = new Node(item, top);
-        count++;
+        top = new Node(item, top); // Tạo node mới và đặt nó làm top
+        count++; // Tăng số lượng phần tử
     }
 
     /// <summary>
-    /// Removes and returns the item from the top of the stack.
+    /// Loại bỏ và trả về phần tử ở trên cùng của stack.
     /// </summary>
-    /// <returns>The item at the top of the stack.</returns>
-    /// <exception cref="InvalidOperationException">Thrown when the stack is empty.</exception>
+    /// <returns>Phần tử trên cùng của stack.</returns>
+    /// <exception cref="InvalidOperationException">Ném lỗi khi stack rỗng.</exception>
     public T Pop()
     {
-        if (IsEmpty())
+        if (IsEmpty()) // Kiểm tra stack có rỗng không
             throw new InvalidOperationException("Stack is empty.");
 
-        T item = top!.Data;
-        top = top.Next;
-        count--;
-        return item;
+        T item = top!.Data; // Lấy dữ liệu từ top
+        top = top.Next; // Di chuyển top tới phần tử tiếp theo
+        count--; // Giảm số lượng phần tử
+        return item; // Trả về dữ liệu
     }
 
     /// <summary>
-    /// Returns the item at the top of the stack without removing it.
+    /// Lấy phần tử trên cùng của stack mà không xóa nó.
     /// </summary>
-    /// <returns>The item at the top of the stack.</returns>
-    /// <exception cref="InvalidOperationException">Thrown when the stack is empty.</exception>
+    /// <returns>Phần tử trên cùng của stack.</returns>
+    /// <exception cref="InvalidOperationException">Ném lỗi khi stack rỗng.</exception>
     public T Peek()
     {
-        if (IsEmpty())
+        if (IsEmpty()) // Kiểm tra stack có rỗng không
             throw new InvalidOperationException("Stack is empty.");
 
-        return top!.Data;
+        return top!.Data; // Trả về dữ liệu của top
     }
 
     /// <summary>
-    /// Checks if the stack is empty.
+    /// Kiểm tra xem stack có rỗng không.
     /// </summary>
-    /// <returns>True if the stack is empty, otherwise false.</returns>
+    /// <returns>True nếu stack rỗng, ngược lại false.</returns>
     public bool IsEmpty()
     {
-        return count == 0;
+        return count == 0; // Stack rỗng khi count = 0
     }
 
     /// <summary>
-    /// Gets the number of items in the stack.
+    /// Lấy số lượng phần tử trong stack.
     /// </summary>
-    public int Count => count;
+    public int Count => count; // Trả về số lượng phần tử
 }

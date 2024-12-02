@@ -185,7 +185,7 @@ namespace BinaryTreeCalculator
             separationLine.BackColor = Color.FromArgb(30, 30, 30);
             separationLine.Location = new Point(318, 0);
             separationLine.Name = "separationLine";
-            separationLine.Size = new Size(2, 468);
+            separationLine.Size = new Size(2, 568);
             separationLine.TabIndex = 5;
             separationLine.TabStop = false;
             // 
