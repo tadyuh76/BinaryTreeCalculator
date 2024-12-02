@@ -4,7 +4,7 @@ A **C# WinForms-based calculator** that evaluates mathematical expressions using
 
 ## ✨ Features
 
-- **Supported Operators**: Addition (`+`), subtraction (`-`), multiplication (`*`), division (`/`), and power (`^`).
+- **Supported Operators**: Addition (`+`), subtraction (`-`), multiplication (`*`), division (`/`), power (`^`), and square root (`√`).
 - **Parentheses Support**: Accurately evaluates nested expressions with parentheses.
 - **Floating-Point Arithmetic**: Supports decimal values for precise calculations.
 - **Interactive Interface**: A user-friendly interface with clickable buttons to input expressions.
